@@ -68,4 +68,9 @@ class AuthController
         session_destroy();
         return new Response('', 302, ['Location' => '/']);
     }
+
+    public function test()
+    {
+        return new \Symfony\Component\HttpFoundation\Response('AUTH OK');
+    }
 }

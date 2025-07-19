@@ -1,7 +1,12 @@
 <?php include __DIR__.'/../partials/header.php'; ?>
 <main class="flex-fill">
 <div class="container mt-4">
-  <h3>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter</h3>
+<?php if (!isset($_SESSION['user'])): ?>
+    <h3>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter</h3>
+  <?php else: ?>
+    <h3>Liste des trajets disponibles</h3>
+    <p>Bienvenue, <?= htmlspecialchars($_SESSION['user']['prenom']) ?> !</p>
+  <?php endif; ?>
 </div>
 
 <div class="container mt-4">
@@ -21,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach($trajets as $trajet): ?>
+      <?php foreach($trajets as $i => $trajet): ?>
         <tr>
           <td><?= htmlspecialchars($trajet['agence_depart'] ?? '') ?></td>
           <td><?= htmlspecialchars($trajet['date_depart'] ?? '') ?></td>
@@ -39,7 +44,7 @@
                 <a href="/trajet/edit/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Modifier">
                   <i class="bi bi-pencil-square"></i>
                 </a>
-                <a href="/trajet/delete/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce trajet ?');">
+                <a href="/trajet/delete/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ? Cette action est irréversible.');">
                   <i class="bi bi-trash"></i>
                 </a>
               <?php endif; ?>
