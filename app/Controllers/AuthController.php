@@ -38,7 +38,7 @@ class AuthController
                         // autres infos utiles
                     ];
                     // Redirection vers la page d'accueil ou admin
-                    header('Location: /dashboard'); // ou la page d'accueil souhaitée
+                    header('Location: /trajets'); // ou la page d'accueil souhaitée
                     exit;
                 } else {
                     // Affiche le formulaire avec un message d'erreur
