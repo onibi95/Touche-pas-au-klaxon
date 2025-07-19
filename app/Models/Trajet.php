@@ -35,8 +35,6 @@ class Trajet
 
     public static function getById($id)
     {
-        die('EDIT CONTROLLER CALLED');
-        var_dump('getById called with id:', $id);
         $db = Database::getInstance();
         $stmt = $db->prepare("
             SELECT 
@@ -60,7 +58,13 @@ class Trajet
         ");
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        var_dump('getById result:', $result);
         return $result;
+    }
+
+    public static function deleteById($id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare('DELETE FROM trajets WHERE id = ?');
+        return $stmt->execute([$id]);
     }
 }
