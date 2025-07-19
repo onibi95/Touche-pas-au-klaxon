@@ -16,7 +16,13 @@
 <div class="container mt-3">
   <div class="d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Touche pas au klaxon</h2>
-    <a href="/login" class="btn btn-dark">Connexion</a>
+    <?php if (isset($_SESSION['user'])): ?>
+        <button>Créer un trajet</button>
+        Bonjour <?= htmlspecialchars($_SESSION['user']['prenom']) . ' ' . htmlspecialchars($_SESSION['user']['nom']) ?>
+        <button>Déconnexion</button>
+    <?php else: ?>
+        <a href="/login">Connexion</a>
+    <?php endif; ?>
   </div>
 </div>
 <hr>

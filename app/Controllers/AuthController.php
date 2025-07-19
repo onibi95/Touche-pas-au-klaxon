@@ -31,8 +31,15 @@ class AuthController
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_role'] = $user['role'];
                     $_SESSION['user_nom'] = $user['nom'];
+                    $_SESSION['user'] = [
+                        'id' => $user['id'],
+                        'prenom' => $user['prenom'],
+                        'nom' => $user['nom'],
+                        // autres infos utiles
+                    ];
                     // Redirection vers la page d'accueil ou admin
-                    return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/']);
+                    header('Location: /dashboard'); // ou la page d'accueil souhaitée
+                    exit;
                 } else {
                     // Affiche le formulaire avec un message d'erreur
                     ob_start();
