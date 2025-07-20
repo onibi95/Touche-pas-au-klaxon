@@ -1,15 +1,21 @@
 <?php include __DIR__.'/../partials/header.php'; ?>
 <main class="flex-fill">
-<div class="container mt-4">
+<?php if (!empty($_SESSION['flash'])): ?>
+  <div class="alert alert-secondary" style="border-radius: 8px;">
+    <?= htmlspecialchars($_SESSION['flash']); unset($_SESSION['flash']); ?>
+  </div>
+<?php endif; ?>
+<body>
+<div class="container mt-2"> <!-- mt-2 au lieu de mt-4 pour rapprocher le tableau du haut -->
 <?php if (!isset($_SESSION['user'])): ?>
     <h3>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter</h3>
   <?php else: ?>
-    <h3>Liste des trajets disponibles</h3>
+    <h3>Trajets proposés</h3>
     <p>Bienvenue, <?= htmlspecialchars($_SESSION['user']['prenom']) ?> !</p>
   <?php endif; ?>
 </div>
 
-<div class="container mt-4">
+<div class="container mt-2"> <!-- mt-2 au lieu de mt-4 pour le tableau -->
   <table class="table table-striped table-bordered text-center align-middle rounded">
     <thead class="table-dark">
       <tr>
@@ -77,5 +83,6 @@
     </div>
   <?php endforeach; ?>
 <?php endif; ?>
+  </body>
 </main>
 <?php include __DIR__.'/../partials/footer.php'; ?>

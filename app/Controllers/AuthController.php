@@ -38,7 +38,11 @@ class AuthController
                         // autres infos utiles
                     ];
                     // Redirection vers la page d'accueil ou admin
-                    header('Location: /trajets'); // ou la page d'accueil souhaitée
+                    if ($user['role'] === 'admin') {
+                        header('Location: /admin');
+                    } else {
+                        header('Location: /trajets');
+                    }
                     exit;
                 } else {
                     // Affiche le formulaire avec un message d'erreur
