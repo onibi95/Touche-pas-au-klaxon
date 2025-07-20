@@ -31,7 +31,7 @@ $router->get('/trajets', 'TrajetController@index');
 $router->get('/trajet/create', 'TrajetController@create');
 $router->post('/trajet/store', 'TrajetController@store');
 $router->get('/trajet/edit/(:any)', 'TrajetController@edit');
-$router->post('/trajet/update/{:any}', 'TrajetController@update');
+$router->post('/trajet/update/(:any)', 'TrajetController@update');
 $router->get('/trajet/delete/(:any)', 'TrajetController@delete');
 
 
