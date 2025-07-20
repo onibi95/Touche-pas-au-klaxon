@@ -1,3 +1,8 @@
+<!-- /**
+ * Point d'entrée principal de l'application.
+ * Configure et lance le routeur (Buki Router) pour toutes les routes publiques et admin.
+ * Initialise l'autoloading et l'affichage des erreurs.
+ */ -->
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

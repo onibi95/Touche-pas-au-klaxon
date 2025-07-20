@@ -5,8 +5,14 @@ use App\Models\Trajet;
 use App\Models\Agence;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Contrôleur des trajets : affichage, création, modification, suppression pour les utilisateurs.
+ */
 class TrajetController
 {
+    /**
+     * Affiche la liste des trajets disponibles.
+     */
     public function index()
     {
         $trajets = Trajet::getAvailable();
@@ -16,6 +22,9 @@ class TrajetController
         return new Response($content);
     }
 
+    /**
+     * Affiche le formulaire de création de trajet.
+     */
     public function create()
     {
         $agences = Agence::getAll();
@@ -25,6 +34,9 @@ class TrajetController
         return new Response($content);
     }
 
+    /**
+     * Traite la création d'un trajet (insertion en base).
+     */
     public function store()
     {
         {
@@ -93,6 +105,10 @@ class TrajetController
         
     }
 
+    /**
+     * Affiche le formulaire d'édition d'un trajet (seulement pour l'auteur).
+     * @param int $id Identifiant du trajet à éditer
+     */
     public function edit($id)
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -112,6 +128,10 @@ class TrajetController
         return new Response($content);
     }
 
+    /**
+     * Traite la modification d'un trajet (update en base, seulement pour l'auteur).
+     * @param int $id Identifiant du trajet à modifier
+     */
     public function update($id)
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -176,6 +196,10 @@ class TrajetController
         }
     }
 
+    /**
+     * Supprime un trajet (par l'auteur).
+     * @param int $id Identifiant du trajet à supprimer
+     */
     public function delete($id)
     {
         \App\Models\Trajet::deleteById($id);

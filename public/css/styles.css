@@ -1,24 +1,117 @@
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+:root {
+    --color-bg: #f1f8fc;
+    --color-primary: #0074c7;
+    --color-primary-dark: #00497c;
+    --color-dark: #384050;
+    --color-danger: #cd2c2e;
+    --color-success: #82b864;
+    --color-white: #fff;
 }
 
 body {
+    background: var(--color-bg);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.flex-fill {
-    flex: 1 0 auto;
+.navbar,
+.rounded.border {
+    background: var(--color-white) !important;
+    color: var(--color-dark);
 }
 
-.sticky-footer {
+.btn-primary,
+.btn-dark {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+.btn-primary:hover,
+.btn-dark:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background: var(--color-dark);
+    color: var(--color-white);
+    border: none;
+}
+
+.btn-secondary:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    border: none;
+    color: var(--color-white);
+}
+
+.btn-danger:hover {
+    background: #a81e22;
+}
+
+.btn-success {
+    background: var(--color-success);
+    border: none;
+    color: var(--color-white);
+}
+
+.btn-success:hover {
+    background: #5e9e4a;
+}
+
+.table {
+    background: var(--color-white);
+}
+
+.table thead {
+    background: var(--color-dark);
+    color: var(--color-white);
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: var(--color-bg);
+}
+
+.alert-secondary {
+    background: var(--color-bg);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
+}
+
+footer.sticky-footer {
     flex-shrink: 0;
     position: relative;
     bottom: 0;
     width: 100%;
     background: none;
+}
+
+/* Pour les icônes d'action (edit, delete, view) */
+.table .bi-pencil-square {
+    color: var(--color-primary);
+}
+
+.table .bi-trash {
+    color: var(--color-danger);
+}
+
+.table .bi-eye {
+    color: var(--color-success);
+}
+
+/* Pour les titres */
+h2,
+h3 {
+    color: var(--color-dark);
+}
+
+/* Pour la navbar arrondie */
+.rounded.border {
+    border-color: var(--color-primary-dark) !important;
 }
