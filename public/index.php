@@ -39,7 +39,13 @@ $router->get('/trajet/delete/(:any)', 'TrajetController@delete');
 $router->get('/admin', 'AdminController@dashboard');
 $router->get('/admin/users', 'AdminController@listUsers');
 $router->get('/admin/agences', 'AdminController@listAgences');
+$router->get('/admin/agence/create', 'AdminController@createAgence');
 $router->post('/admin/agence/create', 'AdminController@createAgence');
+$router->get('/admin/agence/edit/(:any)', 'AdminController@editAgence');
+$router->post('/admin/agence/edit/(:any)', 'AdminController@updateAgence');
+$router->get('/admin/agence/delete/(:any)', 'AdminController@deleteAgence');
+$router->get('/admin/trajets', 'AdminController@listTrajets');
+$router->get('/admin/trajet/delete/(:any)', 'AdminController@deleteTrajet');
 
 // Lancer le routeur
 $router->run();

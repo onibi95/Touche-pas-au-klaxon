@@ -20,15 +20,27 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
 </nav>
 <div class="container mt-3">
-  <div class="d-flex justify-content-between align-items-center">
-    <h2 class="mb-0">Touche pas au klaxon</h2>
-    <?php if (isset($_SESSION['user'])): ?>
-      <a href="/trajet/create" class="btn btn-dark">Créer un trajet</a>
-        Bonjour <?= htmlspecialchars($_SESSION['user']['prenom']) . ' ' . htmlspecialchars($_SESSION['user']['nom']) ?>
-        <a href="/logout" class="btn btn-dark">Déconnexion</a>
-    <?php else: ?>
-        <a href="/login" class="btn btn-dark">Connexion</a>
-    <?php endif; ?>
+  <div class="d-flex justify-content-center align-items-center" style="padding: 0;">
+    <div class="rounded border px-3 py-2 w-100 d-flex align-items-center" style="background: #fff; border-width: 2px; border-radius: 16px;">
+      <span class="fw-bold me-4 flex-shrink-0" style="font-size: 1.5rem;">Touche pas au klaxon</span>
+      <div class="d-flex align-items-center flex-grow-1 justify-content-end" style="gap: 0.5rem;">
+        <?php if (isset($_SESSION['user'])): ?>
+          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+            <a href="/admin/users" class="btn btn-secondary px-3 py-1">Utilisateurs</a>
+            <a href="/admin/agences" class="btn btn-secondary px-3 py-1">Agences</a>
+            <a href="/admin/trajets" class="btn btn-secondary px-3 py-1">Trajets</a>
+            <span class="ms-3 me-2">Bonjour <?= htmlspecialchars($_SESSION['user']['prenom']) . ' ' . htmlspecialchars($_SESSION['user']['nom']) ?></span>
+            <a href="/logout" class="btn btn-dark px-3 py-1 ms-2">Déconnexion</a>
+          <?php else: ?>
+            <a href="/trajet/create" class="btn btn-dark px-3 py-1">Créer un trajet</a>
+            <span class="ms-3 me-2">Bonjour <?= htmlspecialchars($_SESSION['user']['prenom']) . ' ' . htmlspecialchars($_SESSION['user']['nom']) ?></span>
+            <a href="/logout" class="btn btn-dark px-3 py-1 ms-2">Déconnexion</a>
+          <?php endif; ?>
+        <?php else: ?>
+            <a href="/login" class="btn btn-dark px-3 py-1">Connexion</a>
+        <?php endif; ?>
+      </div>
+    </div>
   </div>
 </div>
 <hr>

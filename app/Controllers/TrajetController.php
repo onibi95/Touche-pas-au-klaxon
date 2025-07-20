@@ -159,6 +159,7 @@ class TrajetController
                     $user_id
                 ]);
                 if ($ok) {
+                    $_SESSION['flash'] = 'Le trajet a été modifié';
                     return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/trajets']);
                 } else {
                     $errors[] = "Erreur lors de la mise à jour du trajet.";

@@ -18,7 +18,7 @@ class Database
                     $config['db_pass']
                 );
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo "Connexion à la base de données réussie.<br>";
+                // echo "Connexion à la base de données réussie.<br>";
             } catch (\PDOException $e) {
                 echo "Erreur de connexion à la base de données : " . $e->getMessage() . "<br>";
                 die();
