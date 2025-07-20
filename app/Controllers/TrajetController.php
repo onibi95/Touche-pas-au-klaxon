@@ -95,6 +95,17 @@ class TrajetController
 
     public function edit($id)
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $trajet = \App\Models\Trajet::getById($id);
+        $user_id = $_SESSION['user']['id'] ?? null;
+        if (!$trajet || !$user_id || $trajet['utilisateur_id'] != $user_id) {
+            // Redirection ou message d'erreur
+            $_SESSION['error'] = "Vous n'avez pas le droit de modifier ce trajet.";
+            return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/trajets']);
+        }
+        $agences = \App\Models\Agence::getAll();
         ob_start();
         include __DIR__ . '/../Views/trajets/edit.php';
         $content = ob_get_clean();
@@ -103,7 +114,65 @@ class TrajetController
 
     public function update($id)
     {
-        // Exemple de mise à jour
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $trajet = \App\Models\Trajet::getById($id);
+        $user_id = $_SESSION['user']['id'] ?? null;
+        if (!$trajet || !$user_id || $trajet['utilisateur_id'] != $user_id) {
+            $_SESSION['error'] = "Vous n'avez pas le droit de modifier ce trajet.";
+            return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/trajets']);
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $agence_depart = $_POST['agence_depart'] ?? '';
+            $agence_arrivee = $_POST['agence_arrivee'] ?? '';
+            $date_depart = $_POST['date_depart'] ?? '';
+            $heure_depart = $_POST['heure_depart'] ?? '';
+            $date_arrivee = $_POST['date_arrivee'] ?? '';
+            $heure_arrivee = $_POST['heure_arrivee'] ?? '';
+            $places_total = $_POST['places_total'] ?? '';
+
+            $errors = [];
+            if ($agence_depart === $agence_arrivee) {
+                $errors[] = "L'agence de départ et d'arrivée doivent être différentes.";
+            }
+            $dt_dep = strtotime($date_depart . ' ' . $heure_depart);
+            $dt_arr = strtotime($date_arrivee . ' ' . $heure_arrivee);
+            if ($dt_arr <= $dt_dep) {
+                $errors[] = "La date/heure d'arrivée doit être après la date/heure de départ.";
+            }
+            if ($places_total < 1) {
+                $errors[] = "Le nombre de places doit être supérieur à 0.";
+            }
+            if (count($errors) === 0) {
+                $db = \App\Core\Database::getInstance();
+                $stmt = $db->prepare("UPDATE trajets SET agence_depart_id=?, agence_arrivee_id=?, date_depart=?, heure_depart=?, date_arrivee=?, heure_arrivee=?, places_total=? WHERE id=? AND utilisateur_id=?");
+                $ok = $stmt->execute([
+                    $agence_depart,
+                    $agence_arrivee,
+                    $date_depart,
+                    $heure_depart,
+                    $date_arrivee,
+                    $heure_arrivee,
+                    $places_total,
+                    $id,
+                    $user_id
+                ]);
+                if ($ok) {
+                    return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/trajets']);
+                } else {
+                    $errors[] = "Erreur lors de la mise à jour du trajet.";
+                }
+            }
+            // Réaffichage du formulaire avec erreurs
+            $agences = \App\Models\Agence::getAll();
+            ob_start();
+            include __DIR__ . '/../Views/trajets/edit.php';
+            $content = ob_get_clean();
+            return new Response($content);
+        } else {
+            return new \Symfony\Component\HttpFoundation\Response('', 302, ['Location' => '/trajets']);
+        }
     }
 
     public function delete($id)
