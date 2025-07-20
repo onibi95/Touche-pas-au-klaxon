@@ -14,11 +14,6 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
     <main class="flex-fill">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="/">Covoiturage</a>
-    </div>
-</nav>
 <div class="container mt-3">
   <div class="d-flex justify-content-center align-items-center" style="padding: 0;">
     <div class="rounded border px-3 py-2 w-100 d-flex align-items-center" style="background: #fff; border-width: 2px; border-radius: 16px;">

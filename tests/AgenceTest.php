@@ -1,16 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-/**
- * Classe de test unitaire pour les opérations sur les agences.
- * Couvre l'insertion, la modification et la suppression en base.
- */
 final class AgenceTest extends TestCase
 {
-    /**
-     * Teste l'insertion, la modification et la suppression d'une agence en base de données.
-     * Vérifie la présence après insertion, la modification du nom, et l'absence après suppression.
-     */
     public function testInsertUpdateDeleteAgence()
     {
         $db = \App\Core\Database::getInstance();
@@ -42,4 +34,4 @@ final class AgenceTest extends TestCase
         $agence = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->assertFalse($agence);
     }
-} 
+}

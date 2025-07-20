@@ -3,8 +3,15 @@ namespace App\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Contrôleur d'administration : dashboard, gestion utilisateurs, agences, trajets.
+ * Permet à l'admin de lister, créer, modifier, supprimer agences et trajets.
+ */
 class AdminController
 {
+    /**
+     * Affiche le tableau de bord admin.
+     */
     public function dashboard()
     {
         ob_start();
@@ -13,6 +20,9 @@ class AdminController
         return new Response($content);
     }
 
+    /**
+     * Liste tous les utilisateurs.
+     */
     public function listUsers()
     {
         ob_start();
@@ -21,6 +31,9 @@ class AdminController
         return new Response($content);
     }
 
+    /**
+     * Liste toutes les agences.
+     */
     public function listAgences()
     {
         ob_start();
@@ -29,6 +42,9 @@ class AdminController
         return new Response($content);
     }
 
+    /**
+     * Affiche le formulaire de création d'agence ou traite la création.
+     */
     public function createAgence()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,6 +73,10 @@ class AdminController
         }
     }
 
+    /**
+     * Affiche le formulaire de modification d'une agence.
+     * @param int $id Identifiant de l'agence à modifier
+     */
     public function editAgence($id)
     {
         $db = \App\Core\Database::getInstance();
@@ -74,6 +94,10 @@ class AdminController
         return new Response($content);
     }
 
+    /**
+     * Traite la modification d'une agence.
+     * @param int $id Identifiant de l'agence à modifier
+     */
     public function updateAgence($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -100,6 +124,10 @@ class AdminController
         }
     }
 
+    /**
+     * Supprime une agence.
+     * @param int $id Identifiant de l'agence à supprimer
+     */
     public function deleteAgence($id)
     {
         $db = \App\Core\Database::getInstance();
@@ -109,6 +137,9 @@ class AdminController
         exit;
     }
 
+    /**
+     * Liste tous les trajets pour l'admin.
+     */
     public function listTrajets()
     {
         ob_start();
@@ -117,6 +148,10 @@ class AdminController
         return new Response($content);
     }
 
+    /**
+     * Supprime un trajet.
+     * @param int $id Identifiant du trajet à supprimer
+     */
     public function deleteTrajet($id)
     {
         $db = \App\Core\Database::getInstance();

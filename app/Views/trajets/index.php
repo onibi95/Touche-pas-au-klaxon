@@ -5,8 +5,7 @@
     <?= htmlspecialchars($_SESSION['flash']); unset($_SESSION['flash']); ?>
   </div>
 <?php endif; ?>
-<body>
-<div class="container mt-2"> <!-- mt-2 au lieu de mt-4 pour rapprocher le tableau du haut -->
+<div class="container mt-2"> 
 <?php if (!isset($_SESSION['user'])): ?>
     <h3>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter</h3>
   <?php else: ?>
@@ -15,51 +14,53 @@
   <?php endif; ?>
 </div>
 
-<div class="container mt-2"> <!-- mt-2 au lieu de mt-4 pour le tableau -->
-  <table class="table table-striped table-bordered text-center align-middle rounded">
-    <thead class="table-dark">
-      <tr>
-        <th>Départ</th>
-        <th>Date</th>
-        <th>Heure</th>
-        <th>Destination</th>
-        <th>Date</th>
-        <th>Heure</th>
-        <th>Places</th>
-        <?php if (isset($_SESSION['user'])): ?>
-          <th>Action</th>
-        <?php endif; ?>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach($trajets as $i => $trajet): ?>
+<div class="container mt-2">
+  <div style="max-width: 90%; margin: 0 auto;">
+    <table class="table table-striped table-bordered text-center align-middle rounded">
+      <thead class="table-dark">
         <tr>
-          <td><?= htmlspecialchars($trajet['agence_depart'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['date_depart'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['heure_depart'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['agence_arrivee'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['date_arrivee'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['heure_arrivee'] ?? '') ?></td>
-          <td><?= htmlspecialchars($trajet['places_disponibles'] ?? '') ?></td>
+          <th>Départ</th>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Places</th>
           <?php if (isset($_SESSION['user'])): ?>
-            <td>
-              <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#trajetModal<?= $i ?>" title="Voir infos">
-                <i class="bi bi-eye"></i>
-              </button>
-              <?php if (isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $trajet['utilisateur_id']): ?>
-                <a href="/trajet/edit/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Modifier">
-                  <i class="bi bi-pencil-square"></i>
-                </a>
-                <a href="/trajet/delete/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ? Cette action est irréversible.');">
-                  <i class="bi bi-trash"></i>
-                </a>
-              <?php endif; ?>
-            </td>
+            <th>Action</th>
           <?php endif; ?>
         </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach($trajets as $i => $trajet): ?>
+          <tr>
+            <td><?= htmlspecialchars($trajet['agence_depart'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['date_depart'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['heure_depart'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['agence_arrivee'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['date_arrivee'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['heure_arrivee'] ?? '') ?></td>
+            <td><?= htmlspecialchars($trajet['places_disponibles'] ?? '') ?></td>
+            <?php if (isset($_SESSION['user'])): ?>
+              <td>
+                <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#trajetModal<?= $i ?>" title="Voir infos">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <?php if (isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $trajet['utilisateur_id']): ?>
+                  <a href="/trajet/edit/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Modifier">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href="/trajet/delete/<?= $trajet['id'] ?>" class="btn btn-link p-0 ms-2" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ? Cette action est irréversible.');">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                <?php endif; ?>
+              </td>
+            <?php endif; ?>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
 </div>
 <?php if (isset($_SESSION['user'])): ?>
   <?php foreach($trajets as $i => $trajet): ?>
@@ -83,6 +84,5 @@
     </div>
   <?php endforeach; ?>
 <?php endif; ?>
-  </body>
 </main>
 <?php include __DIR__.'/../partials/footer.php'; ?>
