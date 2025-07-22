@@ -20,6 +20,7 @@ INSERT INTO utilisateurs (prenom, nom, email, mot_de_passe, telephone, role) VAL
 ('Admin', 'Super', 'admin@example.com', 
  -- Mot de passe hashé : "admin123"
 '$2y$10$t6aFKtPcVbRPPI/TQIvitOrFuVtJ1YVbGDgZFjg0LrrE2rFFEvR/e',
+'0601020304',
 'admin'),
 ('Marie', 'Durand', 'marie@example.com', 
  -- Mot de passe hashé : "password"

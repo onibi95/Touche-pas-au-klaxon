@@ -24,8 +24,12 @@
             <td><?= htmlspecialchars($agence['id']) ?></td>
             <td><?= htmlspecialchars($agence['nom']) ?></td>
             <td>
-              <a href="/admin/agence/edit/<?= htmlspecialchars($agence['id']) ?>" class="btn btn-warning btn-sm" title="Modifier"><i class="bi bi-pencil-square"></i></a>
-              <a href="/admin/agence/delete/<?= htmlspecialchars($agence['id']) ?>" class="btn btn-danger btn-sm" title="Supprimer" onclick="return confirm('Supprimer cette agence ?');"><i class="bi bi-trash"></i></a>
+              <a href="/admin/agence/edit/<?= htmlspecialchars($agence['id']) ?>" class="btn btn-link p-0" title="Modifier">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="/admin/agence/delete/<?= htmlspecialchars($agence['id']) ?>" class="btn btn-link p-0 ms-2" title="Supprimer" onclick="return confirm('Supprimer cette agence ?');">
+                <i class="bi bi-trash"></i>
+              </a>
             </td>
           </tr>
         <?php endforeach; ?>

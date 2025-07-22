@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
+use App\Core\Session;
 
 class AuthController
 {
@@ -25,9 +26,8 @@ class AuthController
             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($user) {
-                var_dump($user);
                 if (password_verify($password, $user['mot_de_passe'])) {
-                    session_start();
+                    Session::start();
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_role'] = $user['role'];
                     $_SESSION['user_nom'] = $user['nom'];
@@ -35,7 +35,8 @@ class AuthController
                         'id' => $user['id'],
                         'prenom' => $user['prenom'],
                         'nom' => $user['nom'],
-                        // autres infos utiles
+                        'email' => $user['email'],
+                        'telephone' => $user['telephone']
                     ];
                     // Redirection vers la page d'accueil ou admin
                     if ($user['role'] === 'admin') {
@@ -68,7 +69,7 @@ class AuthController
 
     public function logout()
     {
-        session_start();
+        Session::start();
         session_destroy();
         return new Response('', 302, ['Location' => '/']);
     }

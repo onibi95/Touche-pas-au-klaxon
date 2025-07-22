@@ -1,0 +1,150 @@
+// Imports
+@import 'variables';
+@import 'mixins';
+
+// Base styles
+body {
+  background: $color-bg;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Navigation
+.navbar,
+.rounded.border {
+  background: $color-white !important;
+  color: $color-dark;
+  
+  &.rounded.border {
+    border-color: $color-primary-dark !important;
+  }
+}
+
+// Buttons
+.btn {
+  &-primary,
+  &-dark {
+    @include button-hover($color-primary, $color-primary-dark);
+    color: $color-white;
+  }
+  
+  &-secondary {
+    @include button-style($color-dark);
+  }
+  
+  &-danger {
+    @include button-style($color-danger);
+  }
+  
+  &-success {
+    @include button-style($color-success);
+  }
+}
+
+// Tables
+.table {
+  background: $color-white;
+  
+  thead {
+    background: $color-dark;
+    color: $color-white;
+  }
+  
+  &-striped > tbody > tr:nth-of-type(odd) {
+    background-color: $color-bg;
+  }
+  
+  // Icônes d'action dans les tables
+  .bi {
+    &-pencil-square {
+      color: $color-primary;
+    }
+    
+    &-trash {
+      color: $color-danger;
+    }
+    
+    &-eye {
+      color: $color-success;
+    }
+  }
+}
+
+// Alerts
+.alert {
+  &-secondary {
+    background: $color-bg;
+    color: $color-dark;
+    border-color: $color-primary;
+  }
+}
+
+// Typography
+h2,
+h3 {
+  color: $color-dark;
+}
+
+// Footer
+footer.sticky-footer {
+  flex-shrink: 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background: none;
+}
+
+// Responsive design
+@include tablet {
+  .container {
+    padding: 0 $padding-base;
+  }
+  
+  .table {
+    font-size: $font-size-small;
+  }
+  
+  .btn {
+    font-size: $font-size-small;
+  }
+}
+
+@include mobile {
+  .table {
+    font-size: 0.8rem;
+    
+    th, td {
+      padding: 0.5rem;
+    }
+  }
+  
+  .card {
+    margin: 0.5rem;
+  }
+}
+
+// Utilities
+.text-primary {
+  color: $color-primary !important;
+}
+
+.text-danger {
+  color: $color-danger !important;
+}
+
+.text-success {
+  color: $color-success !important;
+}
+
+.bg-primary {
+  background-color: $color-primary !important;
+}
+
+.bg-danger {
+  background-color: $color-danger !important;
+}
+
+.bg-success {
+  background-color: $color-success !important;
+} 

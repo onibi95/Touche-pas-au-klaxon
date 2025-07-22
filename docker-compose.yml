@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: covoiturage_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor  # Exclude vendor directory to use container's version
+    environment:
+      - DB_HOST=db
+      - DB_NAME=covoiturage
+      - DB_USER=covoiturage_user
+      - DB_PASS=covoiturage_password
+    depends_on:
+      - db
+    networks:
+      - covoiturage_network
+
+  db:
+    image: mysql:8.0
+    container_name: covoiturage_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: covoiturage
+      MYSQL_USER: covoiturage_user
+      MYSQL_PASSWORD: covoiturage_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/migrations:/docker-entrypoint-initdb.d/01-migrations
+      - ./database/seeds:/docker-entrypoint-initdb.d/02-seeds
+    networks:
+      - covoiturage_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: covoiturage_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: covoiturage_user
+      PMA_PASSWORD: covoiturage_password
+    depends_on:
+      - db
+    networks:
+      - covoiturage_network
+
+volumes:
+  db_data:
+
+networks:
+  covoiturage_network:
+    driver: bridge 

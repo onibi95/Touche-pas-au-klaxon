@@ -5,7 +5,7 @@ USE covoiturage;
 -- Table des agences (villes)
 CREATE TABLE agences (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(100) NOT NULL
+    nom VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- Table des utilisateurs

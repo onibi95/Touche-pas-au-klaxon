@@ -1,0 +1,58 @@
+// Mixin pour les boutons avec effet hover
+@mixin button-hover($bg-color, $border-color: $bg-color) {
+  background: $bg-color;
+  border-color: $border-color;
+  
+  &:hover {
+    background: darken($bg-color, 10%);
+    border-color: darken($border-color, 10%);
+  }
+}
+
+// Mixin pour les styles de boutons
+@mixin button-style($bg-color, $text-color: $color-white, $border: none) {
+  background: $bg-color;
+  color: $text-color;
+  border: $border;
+  
+  &:hover {
+    background: darken($bg-color, 10%);
+    color: $text-color;
+  }
+}
+
+// Mixin pour les breakpoints responsive
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+// Mixin pour les transitions
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+// Mixin pour les ombres
+@mixin box-shadow($shadow: 0 2px 4px rgba(0, 0, 0, 0.1)) {
+  box-shadow: $shadow;
+}
+
+// Mixin pour centrer un élément
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 

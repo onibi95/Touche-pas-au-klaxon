@@ -1,9 +1,9 @@
-<!-- /**
+<?php
+/**
  * Point d'entrée principal de l'application.
  * Configure et lance le routeur (Buki Router) pour toutes les routes publiques et admin.
  * Initialise l'autoloading et l'affichage des erreurs.
- */ -->
-<?php
+ */
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,6 +12,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Buki\Router\Router;
 use Symfony\Component\HttpFoundation\Response;
+use App\Core\Session;
+
+// Start session early to avoid headers already sent issues
+Session::start();
 
 // Initialisation
 $router = new Router([

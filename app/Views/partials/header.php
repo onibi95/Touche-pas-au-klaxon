@@ -1,7 +1,6 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// Session is now started in index.php
+use App\Core\Session;
 ?>
 <!DOCTYPE html>
 <html lang="fr">

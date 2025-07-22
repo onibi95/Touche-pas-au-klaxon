@@ -71,7 +71,7 @@
     <div class="row mb-3">
       <div class="col-md-3">
         <label>Nombre total de places</label>
-        <input type="number" name="places_total" class="form-control" min="1" required>
+        <input type="number" name="places_total" class="form-control" min="1" max="7" required>
       </div>
     </div>
     <button type="submit" class="btn btn-primary">Créer le trajet</button>

@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Trajet;
 use App\Models\Agence;
 use Symfony\Component\HttpFoundation\Response;
+use App\Core\Session;
 
 /**
  * Contrôleur des trajets : affichage, création, modification, suppression pour les utilisateurs.
@@ -40,9 +41,7 @@ class TrajetController
     public function store()
     {
         {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
+            Session::start();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $agence_depart = $_POST['agence_depart'] ?? '';
                 $agence_arrivee = $_POST['agence_arrivee'] ?? '';
@@ -63,8 +62,8 @@ class TrajetController
                 if ($dt_arr <= $dt_dep) {
                     $errors[] = "La date/heure d'arrivée doit être après la date/heure de départ.";
                 }
-                if ($places_total < 1) {
-                    $errors[] = "Le nombre de places doit être supérieur à 0.";
+                if ($places_total < 1 || $places_total >= 8) {
+                    $errors[] = "Le nombre de places doit être compris entre 1 et 7.";
                 }
                 if (!$user_id) {
                     $errors[] = "Utilisateur non authentifié.";
@@ -111,9 +110,7 @@ class TrajetController
      */
     public function edit($id)
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        Session::start();
         $trajet = \App\Models\Trajet::getById($id);
         $user_id = $_SESSION['user']['id'] ?? null;
         if (!$trajet || !$user_id || $trajet['utilisateur_id'] != $user_id) {
@@ -134,9 +131,7 @@ class TrajetController
      */
     public function update($id)
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        Session::start();
         $trajet = \App\Models\Trajet::getById($id);
         $user_id = $_SESSION['user']['id'] ?? null;
         if (!$trajet || !$user_id || $trajet['utilisateur_id'] != $user_id) {
@@ -161,8 +156,8 @@ class TrajetController
             if ($dt_arr <= $dt_dep) {
                 $errors[] = "La date/heure d'arrivée doit être après la date/heure de départ.";
             }
-            if ($places_total < 1) {
-                $errors[] = "Le nombre de places doit être supérieur à 0.";
+            if ($places_total < 1 || $places_total >= 8) {
+                $errors[] = "Le nombre de places doit être compris entre 1 et 7.";
             }
             if (count($errors) === 0) {
                 $db = \App\Core\Database::getInstance();

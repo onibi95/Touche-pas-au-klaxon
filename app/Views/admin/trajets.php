@@ -31,7 +31,9 @@
             <td><?= htmlspecialchars($trajet['prenom']) . ' ' . htmlspecialchars($trajet['nom']) ?></td>
             <td><?= htmlspecialchars($trajet['places_total']) ?></td>
             <td>
-              <a href="/admin/trajet/delete/<?= htmlspecialchars($trajet['id']) ?>" class="btn btn-danger btn-sm" title="Supprimer" onclick="return confirm('Supprimer ce trajet ?');"><i class="bi bi-trash"></i></a>
+              <a href="/admin/trajet/delete/<?= htmlspecialchars($trajet['id']) ?>" class="btn btn-link p-0" title="Supprimer" onclick="return confirm('Supprimer ce trajet ?');">
+                <i class="bi bi-trash"></i>
+              </a>
             </td>
           </tr>
         <?php endforeach; ?>
