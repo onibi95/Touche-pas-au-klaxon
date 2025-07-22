@@ -1,7 +1,8 @@
 {
     "require": {
         "php": "^8.2",
-        "izniburak/router": "^3.1"
+        "izniburak/router": "^3.1",
+        "scssphp/scssphp": "^1.12"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.11",
@@ -19,6 +20,12 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyse": "phpstan analyse app"
+        "analyse": "phpstan analyse app",
+        "build-css": "@php scripts/compile-scss.php",
+        "watch-css": "@php scripts/watch-scss.php",
+        "dev": "@watch-css"
+    },
+    "config": {
+        "platform-check": false
     }
 }
